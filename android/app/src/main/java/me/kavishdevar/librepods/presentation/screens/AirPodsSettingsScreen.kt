@@ -582,6 +582,7 @@ Image(
         if (isSystemInDarkTheme()) Color.White else Color.Black
     ),
     modifier = Modifier
+        .align(Alignment.CenterHorizontally)
         .size(160.dp)
         .scale(scale)
         .padding(bottom = 28.dp)
