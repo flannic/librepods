@@ -1,1 +1,27 @@
+name: Build Debug APK
 
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Accept Licenses
+        run: yes | sdkmanager --licenses
+      - name: Install NDK
+        run: sdkmanager "ndk;30.0.14904198"
+      - name: Build foss debug APK
+        run: ./gradlew assembleFossDebug
+        working-directory: android
+      - uses: actions/upload-artifact@v4
+        with:
+          name: librepods-foss-debug
+          path: android/app/build/outputs/apk/foss/debug/app-foss-debug.apk
