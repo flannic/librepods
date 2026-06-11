@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 import me.kavishdevar.librepods.R
 
 class FOSSBillingProvider(context: Context): BillingProvider {
-    private val _isPremium = MutableStateFlow(false)
+    private val _isPremium = MutableStateFlow(true)
     override val isPremium: StateFlow<Boolean> = _isPremium
 
     private val _price = MutableStateFlow(context.getString(R.string.name_your_own_price))
