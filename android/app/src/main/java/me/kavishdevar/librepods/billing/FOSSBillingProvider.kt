@@ -64,7 +64,7 @@ class FOSSBillingProvider(context: Context): BillingProvider {
     }
 
     override fun queryPurchases() {
-        val stored = sharedPreferences.getBoolean("foss_upgraded", false)
+        val stored = sharedPreferences.getBoolean("foss_upgraded", true)
         if (stored != _isPremium.value) {
             _isPremium.value = stored
         }
