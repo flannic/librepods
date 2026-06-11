@@ -101,6 +101,17 @@ import me.kavishdevar.librepods.presentation.components.StyledToggle
 import me.kavishdevar.librepods.presentation.viewmodel.AirPodsViewModel
 import java.util.concurrent.TimeUnit
 import kotlin.io.encoding.ExperimentalEncodingApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.draw.scale
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.FastOutSlowInEasing
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalHazeMaterialsApi::class)
 @SuppressLint("MissingPermission", "UnspecifiedRegisterReceiverFlag")
@@ -554,6 +565,27 @@ fun AirPodsSettingsScreen(viewModel: AirPodsViewModel, navController: NavControl
                                     }
                                 })
                         }) {
+                    val infiniteTransition = rememberInfiniteTransition(label = "breathing")
+val scale by infiniteTransition.animateFloat(
+    initialValue = 0.96f,
+    targetValue = 1.04f,
+    animationSpec = infiniteRepeatable(
+        animation = tween(1600, easing = FastOutSlowInEasing),
+        repeatMode = RepeatMode.Reverse
+    ),
+    label = "scale"
+)
+Image(
+    painter = painterResource(R.drawable.airpods_pro_case_notification),
+    contentDescription = null,
+    colorFilter = ColorFilter.tint(
+        if (isSystemInDarkTheme()) Color.White else Color.Black
+    ),
+    modifier = Modifier
+        .size(160.dp)
+        .scale(scale)
+        .padding(bottom = 28.dp)
+)
                     Text(
                         text = stringResource(R.string.airpods_not_connected), style = TextStyle(
                             fontSize = 24.sp,
