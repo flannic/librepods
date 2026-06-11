@@ -24,7 +24,7 @@ import android.os.Build
 fun isSupported(sharedPreferences: SharedPreferences): Boolean {
     val isPixel = Build.MANUFACTURER.lowercase() == "google"
     val isOppoFamily = Build.MANUFACTURER.lowercase() in listOf("oneplus", "oppo", "realme")
-    val isBypassFlagActive = sharedPreferences.getBoolean("bypass_device_check.v2", false)
+    val isBypassFlagActive = sharedPreferences.getBoolean("bypass_device_check.v2", true)
 
     if (isBypassFlagActive) return true
 
